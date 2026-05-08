@@ -3,134 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منهج أسس التغذية والاقتصاد المنزلي | Xs.boda</title>
+    <title>منهج التغذية | Xs.boda</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;600;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --blur: blur(15px);
-            --gold: #fbbf24;
-            --accent-blue: #7dd3fc;
+            /* لوحة ألوان حديثة */
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --accent-gold: #ffcc33;
+            --accent-cyan: #00f2fe;
+            --text-main: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
         }
 
         body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
-            background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* الطبقة الزجاجية الرئيسية */
-        .main-wrapper {
-            background: rgba(0, 0, 0, 0.4);
-            min-height: 100vh;
-            padding: 40px 20px;
+        /* الخلفية المتحركة لإبراز تأثير الزجاج */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(50px);
+            animation: move 20s infinite alternate;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
+        @keyframes move {
+            from { transform: translate(0, 0); }
+            to { transform: translate(100vw, 100vh); }
         }
 
-        /* الهيدر الزجاجي */
-        header {
+        /* تأثير الزجاج العام */
+        .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 50px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* الترويسة */
+        .main-header {
+            padding: 80px 20px;
             text-align: center;
             margin-bottom: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .brand-name {
-            font-family: 'Great Vibes', cursive;
             font-size: 5rem;
-            color: var(--gold);
-            margin: 0;
-            direction: ltr;
-        }
-
-        .course-name {
-            font-size: 2rem;
             font-weight: 900;
-            margin-top: 10px;
+            background: linear-gradient(to right, #fff, var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
             letter-spacing: 2px;
         }
 
-        /* شبكة الطلاب */
-        .students-section {
-            margin-top: 30px;
-            border-top: 1px solid var(--glass-border);
-            padding-top: 20px;
+        .course-name {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            margin-top: 10px;
         }
 
-        .students-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            list-style: none;
-            padding: 0;
+        /* قائمة الطلاب */
+        .students-container {
+            margin-top: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .students-list li {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 15px;
-            font-family: 'Amiri', serif;
-            font-size: 1.2rem;
-            border: 1px solid transparent;
-            transition: 0.3s;
+        .student-chip {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            border: 1px solid var(--glass-border);
         }
 
-        .students-list li:hover {
-            background: var(--glass-bg);
-            border-color: var(--gold);
+        .student-chip:hover {
+            background: var(--accent-gold);
+            color: #000;
             transform: scale(1.05);
         }
 
-        /* العناوين والأقسام */
-        .section-glass {
-            background: var(--glass-bg);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 30px;
+        /* المحتوى الرئيسي */
+        .container {
+            max-width: 900px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
         }
 
-        h2.title-glow {
-            color: var(--gold);
-            border-right: 5px solid var(--gold);
-            padding-right: 15px;
-            margin-bottom: 25px;
-            font-weight: 900;
+        .section-title {
+            font-size: 2rem;
+            margin: 50px 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* تفاصيل المنهج (Details) */
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to left, var(--glass-border), transparent);
+        }
+
+        /* الانهيارات (Details) بتصميم زجاجي */
         details {
-            background: rgba(255, 255, 255, 0.05);
-            margin-bottom: 10px;
-            border-radius: 15px;
+            margin-bottom: 15px;
             overflow: hidden;
-            border: 1px solid var(--glass-border);
         }
 
         summary {
-            padding: 15px;
+            padding: 20px;
             cursor: pointer;
-            font-weight: bold;
-            color: var(--accent-blue);
             list-style: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::after {
+            content: "✦";
+            color: var(--accent-gold);
         }
 
         .details-content {
@@ -138,141 +160,117 @@
             background: rgba(0, 0, 0, 0.2);
             font-family: 'Amiri', serif;
             font-size: 1.2rem;
+            line-height: 1.8;
         }
 
-        /* قسم البيتزا والكيمياء */
-        .pizza-card {
-            display: flex;
+        /* قسم البيتزا والخميرة */
+        .pizza-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-            align-items: center;
-            margin-bottom: 25px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 20px;
-            border-radius: 20px;
+            margin-top: 30px;
+        }
+
+        .pizza-card {
+            padding: 25px;
+            position: relative;
+        }
+
+        .pizza-card h3 {
+            color: var(--accent-gold);
+            margin-top: 0;
         }
 
         .formula {
-            background: rgba(0, 0, 0, 0.5);
+            background: #000;
+            color: var(--accent-cyan);
             padding: 15px;
             border-radius: 10px;
             font-family: monospace;
-            color: #4ade80;
             text-align: center;
             margin: 15px 0;
-            border: 1px solid #4ade80;
-            direction: ltr;
+            border: 1px solid var(--accent-cyan);
         }
 
-        .tag {
-            background: var(--gold);
-            color: black;
-            padding: 2px 12px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .img-box {
-            min-width: 150px;
-            height: 150px;
-            background: rgba(255,255,255,0.1);
-            border: 2px dashed var(--glass-border);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
+        /* تحسينات الشاشات الصغيرة */
         @media (max-width: 768px) {
-            .pizza-card { flex-direction: column; text-align: center; }
             .brand-name { font-size: 3rem; }
+            .pizza-grid { grid-template-columns: 1fr; }
+            .container { padding: 0 15px; }
         }
     </style>
 </head>
 <body>
 
-<div class="main-wrapper">
-    <div class="container">
+    <header class="main-header">
+        <h1 class="brand-name">Xs.boda</h1>
+        <p class="course-name">أسس التغذية والاقتصاد المنزلي</p>
         
-        <header>
-            <h1 class="brand-name">Xs.boda</h1>
-            <h2 class="course-name">أسس التغذية / الاقتصاد المنزلي</h2>
-            <div class="students-section">
-                <p style="font-weight: 900; color: var(--gold);">فريق إعداد الطلاب</p>
-                <ul class="students-list">
-                    <li>عبدالرحمن مصطفى عويس</li>
-                    <li>عمر محسن عبد العزيز</li>
-                    <li>علي عباس علي</li>
-                    <li>صبري حاتم صبري محمد</li>
-                    <li>هنا محمود مصطفي محمد</li>
-                    <li>منه رجب عبد التواب</li>
-                    <li>هدير احمد مصطفي</li>
-                    <li>ياسمين ابراهيم احمد</li>
-                    <li>فاطمه فايز منصور</li>
-                    <li>منه الله وليد فاروق</li>
+        <div class="students-container">
+            <span class="student-chip">عبدالرحمن مصطفى</span>
+            <span class="student-chip">عمر محسن</span>
+            <span class="student-chip">علي عباس</span>
+            <span class="student-chip">صبري حاتم</span>
+            <span class="student-chip">هنا محمود</span>
+            <span class="student-chip">منه رجب</span>
+            <span class="student-chip">هدير احمد</span>
+            <span class="student-chip">ياسمين ابراهيم</span>
+            <span class="student-chip">فاطمه فايز</span>
+            <span class="student-chip">منه الله وليد</span>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <h2 class="section-title">🧪 أساسيات التغذية</h2>
+
+        <details class="glass-card">
+            <summary>المفاهيم الكبرى (Macronutrients)</summary>
+            <div class="details-content">
+                <p>• <b>الكربوهيدرات:</b> وقود الجسم السريع (4 سعرات/جرام).</p>
+                <p>• <b>البروتينات:</b> لترميم الأنسجة وبناء العضلات.</p>
+                <p>• <b>الدهون:</b> مخزن الطاقة والفيتامينات (9 سعرات/جرام).</p>
+            </div>
+        </details>
+
+        <details class="glass-card">
+            <summary>الفيتامينات والأملاح</summary>
+            <div class="details-content">
+                <p>تنقسم الفيتامينات إلى: <br>
+                1. <b>ذائبة في الدهون:</b> (A, D, E, K) <br>
+                2. <b>ذائبة في الماء:</b> (C, B Complex)</p>
+                <p><i>نقص فيتامين C يؤدي للإسقربوط، ونقص D يؤدي للكساح.</i></p>
+            </div>
+        </details>
+
+        <h2 class="section-title">🍕 فنون العجين والخميرة</h2>
+
+        <div class="pizza-grid">
+            <div class="glass-card pizza-card">
+                <h3>كيمياء التخمير</h3>
+                <p>الخميرة كائن حي يحول السكر إلى غاز CO2 وكحول لرفع العجين.</p>
+                <div class="formula">
+                    Sucrose → Glucose → CO2 ↑
+                </div>
+            </div>
+
+            <div class="glass-card pizza-card">
+                <h3>عناصر النجاح</h3>
+                <p>للحصول على أفضل تفاعل للخميرة، يجب توفير الثلاثي الذهبي:</p>
+                <ul>
+                    <li>الغذاء (السكر/النشا)</li>
+                    <li>الرطوبة (الماء/الحليب)</li>
+                    <li>الدفء (الحرارة المناسبة)</li>
                 </ul>
             </div>
-        </header>
+        </div>
 
-        <main>
-            <div class="section-glass">
-                <h2 class="title-glow">📚 المفاهيم الأساسية في التغذية</h2>
-                
-                <details>
-                    <summary>1. مقدمة في علم التغذية</summary>
-                    <div class="details-content">
-                        <p><strong>الغذاء:</strong> المادة التي يتناولها الكائن الحي.</p>
-                        <p><strong>التغذية:</strong> العمليات التي يحول بها الجسم الغذاء إلى طاقة وأنسجة.</p>
-                    </div>
-                </details>
+        <div class="glass-card" style="margin-top: 20px; padding: 30px;">
+            <h3 style="color:var(--accent-gold)">مراحل تصنيع البيتزا</h3>
+            <p>تبدأ بـ <b>النشاط</b> ثم <b>التخمير الأول</b> (تضاعف الحجم)، يليه <b>التشكيل</b>، وأخيراً <b>الخبز</b> في فرن ساخن جداً لضمان نضج العجين وتوقف نشاط الخميرة في الوقت المثالي.</p>
+        </div>
 
-                <details>
-                    <summary>2. العناصر الغذائية الكبرى والصغرى</summary>
-                    <div class="details-content">
-                        <p><strong>الكربوهيدرات:</strong> المصدر الرئيسي للطاقة.</p>
-                        <p><strong>البروتينات:</strong> بناء العضلات وترميم الأنسجة.</p>
-                        <hr style="opacity: 0.1;">
-                        <p><span style="color:var(--gold)">الفيتامينات:</span> ذائبة في الدهون (A, D, E, K) وذائبة في الماء (B, C).</p>
-                    </div>
-                </details>
-            </div>
-
-            <div class="section-glass">
-                <h2 class="title-glow">🍕 دليل الخميرة والبيتزا</h2>
-                
-                <div class="pizza-card">
-                    <div style="flex: 1;">
-                        <span class="tag">العملية الكيميائية</span>
-                        <h3>كيمياء التخمير</h3>
-                        <p>ينتج غاز CO2 وهو المسؤول عن رفع العجين وتمدده.</p>
-                        <div class="formula">
-                            Sucrose &rarr; Glucose &rarr; Fructose &rarr; Alcohol + CO2
-                        </div>
-                    </div>
-                    <div class="img-box">[ صورة التفاعل الكيميائي ]</div>
-                </div>
-
-                <div class="pizza-card">
-                    <div class="img-box">[ مراحل التخمير ]</div>
-                    <div style="flex: 1;">
-                        <span class="tag">خطوات العمل</span>
-                        <h3>مراحل الخبز</h3>
-                        <ul>
-                            <li>التخمير الأول: تضاعف الحجم.</li>
-                            <li>التخمير الثاني: نصف ساعة.</li>
-                            <li>الخبز: فرن حار لإيقاف الخميرة.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-    </div>
-</div>
+    </main>
 
 </body>
 </html>
