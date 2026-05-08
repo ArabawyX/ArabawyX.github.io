@@ -3,19 +3,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة أسس التغذية | XS.Boda</title>
+    <title>مشروع مقرر أسس التغذية الشامل</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* ================= المتغيرات والألوان ================= */
+        /* ================= المتغيرات العامة للألوان ================= */
         :root {
-            --primary: #2563eb;       /* أزرق رئيسي */
-            --primary-dark: #1e40af;
-            --secondary: #f59e0b;     /* برتقالي للبيتزا والطاقة */
-            --success: #10b981;       /* أخضر للغذاء الصحي */
-            --bg-color: #f1f5f9;      /* خلفية رمادية فاتحة جداً مريحة للعين */
+            /* ألوان الجزء العملي (الغذاء) */
+            --food-gold: #d4a373;
+            --food-dark: #1a1c1d;
+            --food-bg: #fefae0;
+            --food-accent: #bc6c25;
+            
+            /* ألوان الجزء النظري (الأسس) */
+            --theory-primary: #27ae60;
+            --theory-dark: #2c3e50;
+            --theory-light: #e8f8f5;
+            --theory-accent: #d35400;
+
+            /* ألوان قسم البيتزا والخميرة */
+            --pizza-primary: #2c5f78;
+            --pizza-secondary: #d9e8ef;
+            --pizza-accent: #e67e22;
+
+            /* عام */
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ================= 1. تنسيقات الغلاف (الهيدر) ================= */
+        .main-header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid #fbbf24;
+            margin-bottom: 40px;
+        }
+
+        .brand-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: #fbbf24;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .course-name {
+            font-weight: 300;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-top: 0;
+        }
+
+        .separator {
+            width: 80px;
+            border: 1px solid #fbbf24;
+            margin: 30px auto;
+        }
+
+        .students-section h3 {
+            font-weight: 900;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #f8fafc;
+        }
+
+        .students-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .students-list li {
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .students-list li:hover {
+            transform: translateY(-5px);
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+        }
+
+        /* ================= التنسيق العام للقوائم المنسدلة (Details) ================= */
+        details {
+            background: #fff;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        details[open] {
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        summary {
+            padding: 18px 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        summary::after {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        .content-box {
+            padding: 0 20px 20px;
+            color: #444;
+            padding-top: 15px;
+        }
+
+        ul, ol { padding-right: 25px; }
+        li { margin-bottom: 8px; }
+
+        /* ================= 2. تنسيقات الجزء النظري ================= */
+        .theory-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .theory-header {
+            text-align: center;
+            color: var(--theory-dark);
+            border-bottom: 3px solid var(--theory-primary);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .theory-subtitle {
+            background-color: var(--theory-primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .theory-section details { border: 1px solid rgba(39, 174, 96, 0.2); }
+        .theory-section details[open] { border-right: 5px solid var(--theory-primary); }
+        .theory-section summary { color: var(--theory-dark); }
+        .theory-section summary::after { content: '\f067'; color: var(--theory-primary); } /* علامة زائد */
+        .theory-section details[open] summary::after { content: '\f068'; } /* علامة ناقص */
+        .theory-section .content-box { border-top: 1px solid #eee; }
+        .theory-section .highlight { color: var(--theory-accent); font-weight: bold; }
+
+        /* ================= 3. تنسيقات الجزء العملي (الغذاء) ================= */
+        .food-section {
+            background-color: var(--food-bg);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .food-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--food-dark);
+            color: var(--food-gold);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .food-section details { border: 1px solid rgba(212, 163, 115, 0.3); }
+        .food-section summary { color: var(--food-accent); }
+        .food-section summary::after { content: '\f0fe'; color: var(--food-gold); } /* أيقونة إضافة */
+        .food-section details[open] summary::after { content: '\f146'; }
+        .food-section .content-box { border-top: 1px dashed var(--food-gold); }
+        .food-section .highlight { color: var(--food-accent); font-weight: bold; }
+
+        /* ================= 4. تنسيقات قسم البيتزا والخميرة ================= */
+        .pizza-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .pizza-header {
+            text-align: center;
+            background-color: var(--pizza-primary);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .section-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 2px solid var(--pizza-secondary);
+            align-items: center;
+        }
+
+        .section-row:last-child { border-bottom: none; margin-bottom: 0; }
+
+        .pizza-content { flex: 1; min-width: 300px; }
+
+        .image-placeholder {
+            flex: 0 0 250px;
+            height: 180px;
+            background-color: var(--pizza-secondary);
+            border: 2px dashed var(--pizza-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: var(--pizza-primary);
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .pizza-content h3 { 
+            color: var(--pizza-primary); 
+            border-right: 5px solid var(--pizza-accent); 
+            padding-right: 10px; 
+            margin-top: 0;
+        }
+        
+        .formula {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            direction: ltr;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            margin: 15px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--pizza-accent);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        /* ================= 5. الفوتر ================= */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.95rem;
+            color: #666;
+            background: #e9ecef;
+            border-top: 3px solid #ddd;
+        }
+
+        /* شاشات الجوال */
+        @media (max-width: 768px) {
+            .brand-name { font-size: 3rem; }
+            .theory-section, .food-section, .pizza-section { padding: 20px; }
+            .section-row { flex-direction: column; }
+            .image-placeholder { width: 100%; flex: auto; height: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <h1 class="brand-name">XS.Boda</h1>
+            <h2 class="course-name">أسس التغذية / الاقتصاد المنزلي</h2>
+            <hr class="separator">
+            <div class="students-section">
+                <h3>إعداد الطلاب</h3>
+                <ul class="students-list">
+                    <li>عبدالرحمن مصطفى عويس</li>
+                    <li>عمر محسن عبد العزيز</li>
+                    <li>علي عباس علي</li>
+                    <li>صبري حاتم صبري محمد</li>
+                    <li>هنا محمود مصطفي محمد</li>
+                    <li>منه رجب عبد التواب</li>
+                    <li>هدير احمد مصطفي</li>
+                    <li>ياسمين ابراهيم احمد</li>
+                    <li>فاطمه فايز منصور</li>
+                    <li>منه الله وليد فاروق</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section class="theory-section">
+            <div class="theory-header">
+                <h2>📚 ملخص منهج أسس التغذية - النظري</h2>
+            </div>
+
+            <h3 class="theory-subtitle">الجزء الأول: المفاهيم الأساسية</h3>
+
+            <details>
+                <summary>1. مقدمة في علم التغذية</summary>
+                <div class="content-box">
+                    <p><strong>الغذاء:</strong> المادة التي يتناولها الكائن الحي.</p>
+                    <p><strong>التغذية:</strong> العمليات التي يحول بها الجسم الغذاء إلى طاقة وأنسجة.</p>
+                    <p><strong>العناصر الغذائية:</strong> المواد الكيميائية في الطعام (كربوهيدرات، بروتينات، إلخ).</p>
+                    <p><strong>الحالة الغذائية:</strong> حالة الجسم نتيجة لما يتناوله ومدى استفادته منه.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>2. العناصر الغذائية الكبرى (Macronutrients)</summary>
+                <div class="content-box">
+                    <p><strong>الكربوهيدرات:</strong> المصدر الرئيسي للطاقة (سكريات، نشويات، ألياف).</p>
+                    <p><strong>البروتينات:</strong> أحجار البناء، بناء العضلات وترميم الأنسجة.</p>
+                    <p><strong>الدهون:</strong> مصدر مركز للطاقة، وامتصاص الفيتامينات وحماية الأعضاء.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>3. العناصر الغذائية الصغرى (Micronutrients)</summary>
+                <div class="content-box">
+                    <p><span class="highlight">الفيتامينات:</span></p>
+                    <ul>
+                        <li>ذائبة في الدهون: (A, D, E, K).</li>
+                        <li>ذائبة في الماء: (مجموعة B، وفيتامين C).</li>
+                    </ul>
+                    <p><strong>الأملاح المعدنية:</strong> الكالسيوم، الحديد، الفسفور، واليود.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>4. الماء</summary>
+                <div class="content-box">
+                    <ul>
+                        <li>تنظيم درجة حرارة الجسم.</li>
+                        <li>نقل العناصر الغذائية والتخلص من الفضلات.</li>
+                        <li>وسط للتفاعلات الكيميائية داخل الخلايا.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>5. عمليات التمثيل الغذائي (Metabolism)</summary>
+                <div class="content-box">
+                    <p><strong>الهضم:</strong> تحويل الطعام من صورة معقدة إلى بسيطة.</p>
+                    <p><strong>الامتصاص:</strong> انتقال الغذاء من الأمعاء إلى الدم.</p>
+                    <p><strong>التمثيل (الأيض):</strong> استغلال العناصر في الطاقة أو البناء.</p>
+                </div>
+            </details>
+
+            <h3 class="theory-subtitle">الجزء الثاني: التعمق الفني</h3>
+
+            <details>
+                <summary>1. الكربوهيدرات (الوقود الحيوي)</summary>
+                <div class="content-box">
+                    <p><strong>سكريات أحادية:</strong> جلوكوز (سكر الدم)، فركتوز (سكر الفاكهة).</p>
+                    <p><strong>سكريات ثنائية:</strong> سكروز (سكر المائدة)، لاكتوز (سكر الحليب).</p>
+                    <p><strong>سكريات معقدة:</strong> النشا، الجليكوجين، والألياف الضرورية للأمعاء.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>2. البروتينات (المعمار الهيكلي)</summary>
+                <div class="content-box">
+                    <p>تتكون من <strong>أحماض أمينية</strong>:</p>
+                    <ul>
+                        <li>أحماض أساسية: لا يصنعها الجسم (مثل المصادر الحيوانية).</li>
+                        <li>أحماض غير أساسية: يستطيع الجسم تصنيعها.</li>
+                    </ul>
+                    <p><span class="highlight"><i class="fas fa-lightbulb"></i> نصيحة:</span> فكرة "التكامل الغذائي" (مثل الفول مع الخبز).</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>3. الطاقة والقيمة الحرارية (السعرات)</summary>
+                <div class="content-box">
+                    <ul>
+                        <li>1 جرام كربوهيدرات = 4 سعرات.</li>
+                        <li>1 جرام بروتين = 4 سعرات.</li>
+                        <li>1 جرام دهون = 9 سعرات.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>4. الفيتامينات وأعراض النقص</summary>
+                <div class="content-box">
+                    <ul>
+                        <li><strong>فيتامين A:</strong> نقصه يسبب العشى الليلي.</li>
+                        <li><strong>فيتامين D:</strong> نقصه يسبب الكساح ولين العظام.</li>
+                        <li><strong>فيتامين C:</strong> نقصه يسبب الإسقربوط.</li>
+                        <li><strong>B12:</strong> ضروري للأعصاب والأنيميا.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>كيف تضمن الدرجة النهائية؟</summary>
+                <div class="content-box">
+                    <ul>
+                        <li>استخدام الرسوم التخطيطية لمسار الهضم.</li>
+                        <li>عمل جداول مقارنة بين الدهون المشبعة وغير المشبعة.</li>
+                        <li>التدرب على معادلات حساب السعرات.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section class="food-section">
+            <div class="food-header">
+                <i class="fas fa-utensils fa-2x"></i>
+                <h2>مقرر أسس الغذاء والتغذية (العملي)</h2>
+                <p>كلية التربية النوعية - جامعة عين شمس</p>
+            </div>
+
+            <details>
+                <summary>١. مكونات الغذاء الأساسية</summary>
+                <div class="content-box">
+                    يحتاج الجسم لحوالي 45 مادة لبنائه، تتوفر في:
+                    <ul>
+                        <li><span class="highlight">البروتينات:</span> اللبن، البيض، اللحوم، الأسماك، البقول.</li>
+                        <li><span class="highlight">الكربوهيدرات:</span> الحبوب، الخبز، البطاطس، السكريات.</li>
+                        <li><span class="highlight">الدهون:</span> الزيوت النباتية، الزبد، السمن.</li>
+                        <li><span class="highlight">الأملاح والفيتامينات:</span> كالكالسيوم والحديد وفيتامينات (أ، ب، ج، د).</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>٢. قواعد تجهيز الوجبات المثالية</summary>
+                <div class="content-box">
+                    <ul>
+                        <li>مراعاة ميزانية الأسرة وتقديم بدائل اقتصادية.</li>
+                        <li>تنسيق الألوان في الوجبة لتكون جذابة وغير مملة.</li>
+                        <li>تنوع القوام بين اللين (كالبوريه) والصلب (كالمحمرات) والطازج (كالسلطة).</li>
+                        <li>تجنب تكرار الصنف الواحد في الوجبة (مثل تقديم عدة أصناف كلها تحتوي طماطم).</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>٣. أهمية وأثر الطهي على الغذاء</summary>
+                <div class="content-box">
+                    <p><strong>أهمية الطهي:</strong> يساعد على تكسير ألياف الخضر وتليين نسيج اللحوم لسهولة الهضم، وقتل الميكروبات.</p>
+                    <p><strong>الأثر على العناصر:</strong></p>
+                    <ul>
+                        <li><span class="highlight">البروتين:</span> يتجمد بالحرارة وينكمش بسبب انفصال العصارات.</li>
+                        <li><span class="highlight">النشويات:</span> تتحول بالحرارة الجافة إلى "دكسترين" سهل الهضم وبالرطبة إلى مادة جيلاتينية.</li>
+                        <li><span class="highlight">الفيتامينات:</span> فيتامين (ج) هو الأكثر تأثراً بالحرارة وقد يفقد بنسبة 98%.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>٤. طرق الطهي (الحرارة الرطبة)</summary>
+                <div class="content-box">
+                    <ul>
+                        <li><span class="highlight">السلق:</span> الطهي في ماء مغلي (100°م). يستخدم كمية ماء كبيرة للبقول وقليلة للخضر.</li>
+                        <li><span class="highlight">التسبيك:</span> الطهي في سائل محدود في إناء محكم الغطاء تحت درجة الغليان. له ثلاث طرق: (ني x ني)، التسبيك الخفيف، والتسبيك الثقيل.</li>
+                        <li><span class="highlight">التشريب:</span> طهي الطعام في كمية قليلة جداً من السائل حتى يتشربه (مثل الأرز).</li>
+                        <li><span class="highlight">البخار:</span> طهي الطعام بواسطة بخار الماء الذي تصل حرارته لـ 120°م.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section class="pizza-section">
+            <div class="pizza-header">
+                <h2>🍕 دليل المذاكرة الشامل: الخميرة والبيتزا</h2>
+                <p>خطة تعليمية تفصيلية لمكونات وعمليات العجين</p>
+            </div>
+
+            <div class="section-row">
+                <div class="pizza-content">
+                    <span class="tag">القسم الأول</span>
+                    <h3>أساسيات الخميرة</h3>
+                    <p><strong>التعريف:</strong> كائنات دقيقة غنية بفيتامين B المركب والبروتينات.</p>
+                    <p><strong>الأنواع:</strong></p>
+                    <ul>
+                  --bg-color: #f1f5f9;      /* خلفية رمادية فاتحة جداً مريحة للعين */
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
