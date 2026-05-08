@@ -8,27 +8,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        /* ================= إعادة ضبط عامة ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         /* ================= إعدادات عامة وتصميم زجاجي ================= */
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --glass-blur: blur(20px);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-blur: blur(25px);
             --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.8);
+            --text-muted: rgba(255, 255, 255, 0.85);
+            --accent-color: #00e5ff; 
         }
 
         body {
             font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 0;
             color: var(--text-main);
-            /* صورة الخلفية الصحراوية/الفضائية */
-            background-image: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=2076&auto=format&fit=crop');
+            background-image: url('https://images.unsplash.com/photo-1545562083-948f9439164a?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
             line-height: 1.7;
+            overflow-x: hidden; 
         }
 
         .overlay {
@@ -37,7 +43,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.35);
+            background: rgba(0, 0, 0, 0.3); 
             z-index: -1;
         }
 
@@ -45,6 +51,24 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+        }
+
+        /* ================= الأنيميشن (Animations) ================= */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 229, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); }
         }
 
         /* ================= الشريط العلوي ================= */
@@ -58,9 +82,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 10px;
             margin-bottom: 40px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            /* حركة الظهور */
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         .logo {
@@ -71,13 +97,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--accent-color);
         }
 
         .nav-links {
             display: flex;
             gap: 20px;
             font-size: 0.95rem;
-            color: var(--text-muted);
+            color: var(--text-main);
             font-weight: 600;
         }
 
@@ -90,24 +117,37 @@
             font-weight: bold;
             font-family: 'Cairo', sans-serif;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .login-btn:hover { background: #f0f0f0; transform: scale(1.05); }
+        .login-btn:hover { 
+            background: var(--accent-color); 
+            color: #000;
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.4);
+        }
 
         /* ================= البطاقات الزجاجية ================= */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
             border-radius: 30px;
             padding: 40px;
             margin-bottom: 40px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            /* حركة الظهور المتدرج للأقسام */
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
+
+        /* تأخير حركة ظهور الأقسام بالترتيب */
+        .glass-panel:nth-child(2) { animation-delay: 0.2s; }
+        .glass-panel:nth-child(3) { animation-delay: 0.4s; }
+        .glass-panel:nth-child(4) { animation-delay: 0.6s; }
 
         .glass-panel::before {
             content: attr(data-number);
@@ -117,13 +157,12 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 10rem;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.03);
             z-index: 0;
             line-height: 1;
             pointer-events: none;
         }
 
-        /* تنسيق الشبكة لتوزيع النص بجوار الصورة */
         .panel-layout {
             display: flex;
             gap: 40px;
@@ -134,25 +173,42 @@
 
         .panel-text {
             flex: 1;
+            width: 100%;
         }
 
+        /* ================= بطاقات الصور (Image Cards) ================= */
         .panel-image-card {
-            flex: 0 0 320px; /* عرض ثابت للصورة */
-            background: rgba(255, 255, 255, 0.05);
+            flex: 0 0 320px;
+            background: rgba(255, 255, 255, 0.03);
             padding: 15px;
             border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
             gap: 15px;
+            /* تأثير الطفو المستمر */
+            animation: float 6s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 350px;
+            border-radius: 15px;
+            overflow: hidden;
         }
 
         .panel-image-card img {
             width: 100%;
-            height: 350px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 15px;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* تأثير التكبير عند تمرير الماوس */
+        .panel-image-card:hover img {
+            transform: scale(1.08);
         }
 
         .image-caption {
@@ -166,10 +222,18 @@
         }
 
         .image-caption i {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
             padding: 8px;
             border-radius: 50%;
             cursor: pointer;
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .panel-image-card:hover .image-caption i {
+            background: var(--accent-color);
+            color: #000;
+            animation: pulseGlow 1.5s infinite;
         }
 
         /* ================= العناوين والقوائم المنسدلة ================= */
@@ -178,23 +242,29 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding-bottom: 20px;
         }
 
+        .panel-header i { color: var(--accent-color); }
         .panel-header h2 { margin: 0; font-weight: 400; font-size: 1.8rem; }
 
         details {
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.15);
             margin-bottom: 15px;
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        details:hover {
+            background: rgba(0, 0, 0, 0.25);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
         details[open] {
-            background: rgba(0, 0, 0, 0.45);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-border);
         }
 
         summary {
@@ -206,13 +276,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: color 0.3s ease;
         }
 
         summary::after {
             content: '\f107';
-            font-family: "Font Awesome 5 Free";
+            font-family: "Font Awesome 6 Free";
             font-weight: 900;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
+            color: var(--accent-color);
         }
 
         details[open] summary::after { transform: rotate(180deg); }
@@ -223,12 +295,16 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 15px;
             font-size: 0.95rem;
+            animation: fadeInUp 0.4s ease-out forwards; /* أنيميشن لفتح القائمة */
         }
+
+        .content-box ul, .content-box ol { padding-right: 25px; margin: 10px 0; }
+        .content-box li { margin-bottom: 10px; }
 
         .highlight {
             color: #fff;
             font-weight: bold;
-            background: rgba(255,255,255,0.15);
+            background: rgba(0, 229, 255, 0.15);
             padding: 2px 8px;
             border-radius: 5px;
         }
@@ -236,22 +312,28 @@
         /* ================= قسم الطلاب ================= */
         .students-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
             width: 100%;
         }
 
         .student-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 12px;
             border-radius: 12px;
             text-align: center;
             font-size: 0.9rem;
-            transition: transform 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .student-card:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-3px); }
+        .student-card:hover { 
+            background: rgba(255, 255, 255, 0.15); 
+            transform: translateY(-5px); 
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            color: #fff;
+        }
 
         /* ================= الشريط السفلي ================= */
         .bottom-bar {
@@ -266,16 +348,38 @@
             margin-bottom: 20px;
             font-size: 0.85rem;
             color: var(--text-muted);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            flex-wrap: wrap;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.8s forwards; /* يظهر أخيراً */
         }
 
-        /* شاشات الجوال */
-        @media (max-width: 900px) {
+        .bottom-bar i { color: var(--accent-color); transition: transform 0.3s; }
+        .bottom-bar .up-btn:hover i { transform: translateY(-3px); }
+
+        /* ================= التجاوب مع جميع الشاشات (Responsive) ================= */
+        @media (max-width: 992px) {
             .panel-layout { flex-direction: column; }
-            .panel-image-card { width: 100%; flex: auto; box-sizing: border-box; }
-            .panel-image-card img { height: 250px; }
-            .glass-panel { padding: 25px; }
+            .panel-image-card { width: 100%; max-width: 100%; flex: auto; }
+            .image-wrapper { height: 300px; }
+            .glass-panel::before { font-size: 7rem; left: 15px; top: -10px; }
+        }
+
+        @media (max-width: 768px) {
             .nav-links { display: none; }
+            .top-nav { padding: 15px 25px; }
+            .glass-panel { padding: 25px; border-radius: 20px; }
+            .panel-header h2 { font-size: 1.4rem; }
+            .bottom-bar { flex-direction: column; text-align: center; border-radius: 20px; padding: 20px;}
+        }
+
+        @media (max-width: 480px) {
+            .students-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+            .image-wrapper { height: 200px; }
+            summary { font-size: 1rem; padding: 15px; }
+            .logo { font-size: 1.2rem; }
+            .glass-panel::before { font-size: 5rem; left: 10px; top: -5px; }
         }
     </style>
 </head>
@@ -287,7 +391,7 @@
         
         <nav class="top-nav">
             <div class="logo">
-                <i class="fa-solid fa-atom"></i> XS.BODA
+                <i class="fa-solid fa-water"></i> XS.BODA
             </div>
             <div class="nav-links">
                 <span>أسس التغذية</span>
@@ -299,7 +403,7 @@
 
         <section class="glass-panel" data-number="00">
             <div class="panel-layout">
-                <div class="panel-text" style="width: 100%;">
+                <div class="panel-text">
                     <div class="panel-header">
                         <i class="fas fa-users fa-2x"></i>
                         <h2>فريق العمل - إعداد الطلاب</h2>
@@ -312,6 +416,121 @@
                         <div class="student-card">هنا محمود مصطفي محمد</div>
                         <div class="student-card">منه رجب عبد التواب</div>
                         <div class="student-card">هدير احمد مصطفي</div>
+                        <div class="student-card">ياسمين ابراهيم احمد</div>
+                        <div class="student-card">فاطمه فايز منصور</div>
+                        <div class="student-card">منه الله وليد فاروق</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-panel" data-number="01">
+            <div class="panel-layout">
+                <div class="panel-text">
+                    <div class="panel-header">
+                        <i class="fas fa-book-open fa-2x"></i>
+                        <h2>ملخص منهج أسس التغذية (النظري)</h2>
+                    </div>
+
+                    <details open>
+                        <summary>1. مقدمة في علم التغذية</summary>
+                        <div class="content-box">
+                            <p><span class="highlight">الغذاء:</span> المادة التي يتناولها الكائن الحي.</p>
+                            <p><span class="highlight">التغذية:</span> العمليات التي يحول بها الجسم الغذاء إلى طاقة وأنسجة.</p>
+                            <p><span class="highlight">العناصر الغذائية:</span> المواد الكيميائية في الطعام (كربوهيدرات، بروتينات، إلخ).</p>
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>2. العناصر الغذائية (الكبرى والصغرى)</summary>
+                        <div class="content-box">
+                            <ul>
+                                <li><span class="highlight">الكربوهيدرات:</span> المصدر الرئيسي للطاقة (سكريات، نشويات، ألياف).</li>
+                                <li><span class="highlight">البروتينات:</span> أحجار البناء، بناء العضلات وترميم الأنسجة.</li>
+                                <li><span class="highlight">الدهون:</span> مصدر مركز للطاقة، وامتصاص الفيتامينات.</li>
+                                <li><span class="highlight">الفيتامينات:</span> ذائبة في الدهون (A, D, E, K) وذائبة في الماء (B, C).</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>3. عمليات التمثيل الغذائي</summary>
+                        <div class="content-box">
+                            <p><span class="highlight">الهضم:</span> تحويل الطعام من صورة معقدة إلى بسيطة.</p>
+                            <p><span class="highlight">الامتصاص:</span> انتقال الغذاء من الأمعاء إلى الدم.</p>
+                            <p><span class="highlight">التمثيل (الأيض):</span> استغلال العناصر في الطاقة أو البناء.</p>
+                        </div>
+                    </details>
+                </div>
+                
+                <div class="panel-image-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop" alt="أكل صحي وتغذية">
+                    </div>
+                    <div class="image-caption">
+                        <span>NUTRITION BASICS</span>
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-panel" data-number="02">
+            <div class="panel-layout">
+                <div class="panel-text">
+                    <div class="panel-header">
+                        <i class="fas fa-utensils fa-2x"></i>
+                        <h2>مقرر الغذاء والتغذية (العملي)</h2>
+                    </div>
+
+                    <details open>
+                        <summary>١. قواعد تجهيز الوجبات المثالية</summary>
+                        <div class="content-box">
+                            <ul>
+                                <li>مراعاة ميزانية الأسرة وتقديم بدائل اقتصادية.</li>
+                                <li>تنسيق الألوان في الوجبة لتكون جذابة وغير مملة.</li>
+                                <li>تنوع القوام بين اللين (كالبوريه) والصلب (كالمحمرات) والطازج (كالسلطة).</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>٢. أهمية وأثر الطهي على الغذاء</summary>
+                        <div class="content-box">
+                            <p>يساعد على تكسير ألياف الخضر وتليين نسيج اللحوم لسهولة الهضم، وقتل الميكروبات.</p>
+                            <ul>
+                                <li><span class="highlight">البروتين:</span> يتجمد بالحرارة وينكمش بسبب انفصال العصارات.</li>
+                                <li><span class="highlight">النشويات:</span> تتحول بالحرارة الجافة إلى "دكسترين" سهل الهضم.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    
+                    <details>
+                        <summary>٣. طرق الطهي (الحرارة الرطبة)</summary>
+                        <div class="content-box">
+                            <ul>
+                                <li><span class="highlight">السلق:</span> الطهي في ماء مغلي (100°م).</li>
+                                <li><span class="highlight">التسبيك:</span> الطهي في سائل محدود في إناء محكم الغطاء.</li>
+                                <li><span class="highlight">التشريب:</span> طهي الطعام في كمية قليلة جداً من السائل حتى يتشربه.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="panel-image-card" style="animation-delay: 0.5s;"> <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1556910103-1c02745a872f?q=80&w=800&auto=format&fit=crop" alt="أدوات الطهي والتحضير">
+                    </div>
+                    <div class="image-caption">
+                        <span>PRACTICAL COOKING</span>
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-panel" data-number="03">
+            <div class="panel-layout">
+                ard">هدير احمد مصطفي</div>
                         <div class="student-card">ياسمين ابراهيم احمد</div>
                         <div class="student-card">فاطمه فايز منصور</div>
                         <div class="student-card">منه الله وليد فاروق</div>
