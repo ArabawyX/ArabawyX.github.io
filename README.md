@@ -273,7 +273,7 @@
 
     <header class="main-header">
         <div class="overlay">
-            <h1 class="brand-name">Xs.boda</h1>
+            <h1 class="brand-name">XS.Boda</h1>
             <h2 class="course-name">أسس التغذية / الاقتصاد المنزلي</h2>
             <hr class="separator">
             <div class="students-section">
@@ -297,7 +297,7 @@
     <div class="food-section">
         <div class="food-header">
             <i class="fas fa-book-open fa-2x"></i>
-            <h2>مخلص مقرر الغذاء والتغذية (عملي)</h2>
+            <h2>مقرر اسس الغذاء والتغذية (عملي)</h2>
             <p>كلية التربية النوعية - جامعة عين شمس</p>
         </div>
 
