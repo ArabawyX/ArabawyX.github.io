@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -200,20 +201,19 @@
             min-width: 250px;
         }
 
-        .image-placeholder {
+        .image-card {
             flex: 1;
             min-width: 250px;
             min-height: 200px;
-            background-color: var(--blue-light);
-            border: 2px dashed var(--blue-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border-radius: 10px;
-            color: var(--blue-accent);
-            font-weight: bold;
-            text-align: center;
-            padding: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .image-card .content-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .yeast-content h2 { 
@@ -254,7 +254,7 @@
             .yeast-section { flex-direction: column; text-align: center; }
             .yeast-content h2 { border-right: none; border-bottom: 3px solid var(--orange-accent); padding-bottom: 10px; display: inline-block;}
             ul, ol { text-align: right; }
-            .image-placeholder { width: 100%; }
+            .image-card { width: 100%; }
         }
     </style>
 </head>
@@ -412,13 +412,13 @@
                     <li><strong>خميرة بيرة جافة:</strong> حبيبات، صلاحية أطول، تفعيل مختلف.</li>
                 </ul>
             </div>
-            <div class="image-placeholder">
-                [صورة أنواع الخميرة <br> وشكل الخلايا]
+            <div class="image-card">
+                <img src="https://image_generation_service.com/p/yeast_baker_photo.jpg" alt="Types of Yeast and Baker Kneading" class="content-image">
             </div>
         </div>
 
         <div class="yeast-section">
-            <div class="image-placeholder">
+            <div class="image-card">
                 [صورة مخطط <br> الدفء/الغذاء/الرطوبة]
             </div>
             <div class="yeast-content">
@@ -444,13 +444,13 @@
                 </ul>
                 <p><strong>المقادير:</strong> دقيق، ملح، زيت، خميرة، سكر، حليب، بيضة.</p>
             </div>
-            <div class="image-placeholder">
+            <div class="image-card">
                 [صورة أيقونات المقادير <br> دقيق/زيت/بيض]
             </div>
         </div>
 
         <div class="yeast-section">
-            <div class="image-placeholder">
+            <div class="image-card">
                 [صورة مراحل <br> تضاعف حجم العجين]
             </div>
             <div class="yeast-content">
@@ -473,7 +473,7 @@
                 <p><strong>التطبيقات:</strong> حشو بالجبن الرومي أو الأنشوجة.</p>
                 <p><strong>المكونات الإضافية:</strong> زعتر، زيتون أسود، فلفل، زيت زيتون.</p>
             </div>
-            <div class="image-placeholder">
+            <div class="image-card">
                 [صورة الفرن <br> وصورة البيتزا النهائية]
             </div>
         </div>
